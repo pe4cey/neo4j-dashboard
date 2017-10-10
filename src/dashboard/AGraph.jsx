@@ -7,72 +7,75 @@ import { AxisLeft, AxisBottom } from '@vx/axis';
 import { LinearGradient } from '@vx/gradient';
 import { extent, max } from 'd3-array';
 
-const data = appleStock;
 
-const width = 750;
-const height = 400;
+export default (props) => {
 
-const x = d => new Date(d.date);
-const y = d => d.close;
+  const data = props.data
+  const width = 750;
+  const height = 400;
 
-// Bounds
-const margin = {
-  top: 60,
-  bottom: 60,
-  left: 80,
-  right: 80,
-};
-const xMax = width - margin.left - margin.right;
-const yMax = height - margin.top - margin.bottom;
+  const x = d => d.index;
+  const y = d => d.value;
 
-const xScale = scaleTime({
-  range: [0, xMax],
-  domain: extent(data, x)
-});
-const yScale = scaleLinear({
-  range: [yMax, 0],
-  domain: [0, max(data, y)],
-});
+  // Bounds
+  const margin = {
+    top: 60,
+    bottom: 60,
+    left: 80,
+    right: 80,
+  };
+  const xMax = width - margin.left - margin.right;
+  const yMax = height - margin.top - margin.bottom;
 
-export default () => (
-  <div>
-    <svg width={width} height={height}>
-      <LinearGradient
-        from='#fbc2eb'
-        to='#a6c1ee'
-        id='gradient'
-      />
+  const xScale = scaleTime({
+    range: [0, xMax],
+    domain: extent(data, x)
+  });
+  const yScale = scaleLinear({
+    range: [yMax, 0],
+    domain: [0, max(data, y)],
+  });
 
-      <Group top={margin.top} left={margin.left}>
-
-        <AreaClosed
-          data={data}
-          xScale={xScale}
-          yScale={yScale}
-          x={x}
-          y={y}
-          fill={"url(#gradient)"}
-          stroke={""}
+  return (
+    <div>
+      <svg width={width} height={height}>
+        <LinearGradient
+          from='#008ec2'
+          to='#64b346'
+          id='gradient'
         />
 
-        <AxisLeft
-          scale={yScale}
-          top={0}
-          left={0}
-          label={'Close Price ($)'}
-          stroke={'#1b1a1e'}
-          tickTextFill={'#1b1a1e'}
-        />
+        <Group top={margin.top} left={margin.left}>
 
-        <AxisBottom
-          scale={xScale}
-          top={yMax}
-          label={'Years'}
-          stroke={'#1b1a1e'}
-          tickTextFill={'#1b1a1e'}
-        />
+          <AreaClosed
+            data={data}
+            xScale={xScale}
+            yScale={yScale}
+            x={x}
+            y={y}
+            fill={"url(#gradient)"}
+            stroke={""}
+          />
 
-      </Group>
-    </svg>
-  </div>
-)
+          <AxisLeft
+            scale={yScale}
+            top={0}
+            left={0}
+            label={props.yLabel || 'Close Price ($)'}
+            stroke={'#1b1a1e'}
+            tickTextFill={'#1b1a1e'}
+          />
+
+          <AxisBottom
+            scale={xScale}
+            top={yMax}
+            label={props.xLabel || 'Years'}
+            stroke={'#1b1a1e'}
+            tickTextFill={'#1b1a1e'}
+          />
+
+        </Group>
+      </svg>
+    </div>
+  )
+}
