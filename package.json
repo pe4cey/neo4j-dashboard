@@ -3,6 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@vx/axis": "^0.0.142",
+    "@vx/gradient": "^0.0.140",
+    "@vx/grid": "^0.0.142",
+    "@vx/group": "^0.0.140",
+    "@vx/mock-data": "^0.0.136",
+    "@vx/scale": "^0.0.140",
+    "@vx/shape": "^0.0.142",
+    "neo4j-driver": "^1.4.1",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-scripts": "1.0.14"
