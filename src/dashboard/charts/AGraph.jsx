@@ -14,8 +14,8 @@ export default (props) => {
   const width = 750;
   const height = 400;
 
-  const x = d => d.index;
-  const y = d => d.value;
+  const x = d => d.x;
+  const y = d => d.y;
 
   // Bounds
   const margin = {

@@ -24,15 +24,15 @@ class ChartWrapper extends Component {
   singleValueAsNumberWithLabel = (result) => {
     const valueAsNumber = (value) => (value.toNumber) ? value.toNumber() : window.parseFloat(value) || 0
     if (this.props.headings) {
-      const m = result.records.map(rec => {
+      return result.records.map(rec => {
         return this.props.headings.map(heading => {
           return {
             label: heading,
             value: valueAsNumber(rec.get(heading))
           }
         })
-      })
-      return m[0]
+      })[0]
+
     }
     return result.records.map(rec => {
       return {
@@ -42,8 +42,8 @@ class ChartWrapper extends Component {
     })
   }
   responseHandler (res) {
-    const value = this.singleValueAsNumber(res)
-    return [{value, index: ++this.tick}]
+    const y = this.singleValueAsNumber(res)
+    return [{y, x: ++this.tick}]
   }
   responsePieHandler (res) {
     return this.singleValueAsNumberWithLabel(res)
@@ -66,10 +66,11 @@ class ChartWrapper extends Component {
   }
   renderChart(res, chartType) {
     if (chartType !== 'pie') {
-      this.data = res ? [...applyDataLimit(this.data), ...this.responseHandler(res)] : this.data
-      this.data = applyDataLimit(this.data).map((d, i) => {
+      this.data = applyDataLimit(this.data)
+      this.data = res ? [...this.data, ...this.responseHandler(res)] : this.data
+      this.data = this.data.map((d, i) => {
         if (d) {
-          d.index = i
+          d.x = i
         }
         return d
       })
@@ -78,9 +79,7 @@ class ChartWrapper extends Component {
     }
     return (
       <div>
-        {
-          this.getChart(this.props.chartType)
-        }
+        {this.getChart(this.props.chartType)}
         <h2>{this.props.title}</h2>
       </div>)
   }

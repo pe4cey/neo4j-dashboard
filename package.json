@@ -5,6 +5,7 @@
   "dependencies": {
     "@data-ui/radial-chart": "0.0.11",
     "@data-ui/theme": "0.0.9",
+    "@data-ui/xy-chart": "0.0.25",
     "@vx/axis": "^0.0.142",
     "@vx/glyph": "0.0.140",
     "@vx/gradient": "^0.0.140",

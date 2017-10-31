@@ -13,8 +13,8 @@ export default (props) => {
 
   // accessors
 
-  const x = d => d.index;
-  const y = d => d.value;
+  const x = d => d.x;
+  const y = d => d.y;
 
   // data = [...data, ...this.responseHandler(res)]
 

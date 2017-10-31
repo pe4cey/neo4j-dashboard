@@ -4,21 +4,21 @@ import { Grid } from 'semantic-ui-react';
 import { processCpuLoad, systemMemory } from '../queries/systemQueries'
 
 export default () =>
-  <Grid columns={2} divided>
-    <Grid.Row>
-      <Grid.Column>
+  <table>
+    <tr>
+      <td>
         <ChartWrapper {...processCpuLoad} chartType='area' />
-      </Grid.Column>
-      <Grid.Column>
+      </td>
+      <td>
         <ChartWrapper {...processCpuLoad} chartType='area' />
-      </Grid.Column>
-    </Grid.Row>
-    <Grid.Row>
-      <Grid.Column>
+      </td>
+    </tr>
+    <tr>
+      <td>
         <ChartWrapper {...processCpuLoad} chartType='glyph' />
-      </Grid.Column>
-      <Grid.Column>
+      </td>
+      <td>
         <ChartWrapper {...systemMemory} chartType='pie' />
-    </Grid.Column>
-    </Grid.Row>
-  </Grid>
+      </td>
+    </tr>
+  </table>
