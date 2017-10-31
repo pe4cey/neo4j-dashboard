@@ -10,7 +10,7 @@ export default () =>
         <ChartWrapper {...labelDistribution} chartType='pie' />
       </td>
       <td>
-        <ChartWrapper {...totalNodes} chartType='bar' />
+        <ChartWrapper {...totalNodes} chartType='text' />
       </td>
     </tr>
   </table>

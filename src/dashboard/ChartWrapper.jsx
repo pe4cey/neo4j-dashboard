@@ -4,6 +4,7 @@ import BarGraph from './charts/BarGraph'
 import GlyphGraph from './charts/GlyphGraph'
 import LineRadial from './charts/LineRadial'
 import RadialChart from './charts/RadialChart'
+import Textual from './charts/Textual'
 import { Group } from '@vx/group';
 import { AreaClosed, Line, Bar } from '@vx/shape';
 import { scaleLinear, scaleBand } from '@vx/scale';
@@ -60,6 +61,8 @@ class ChartWrapper extends Component {
         return <LineRadial data={this.data} {...this.props}/>
       case 'pie':
         return <RadialChart data={this.data} {...this.props}/>
+      case 'text':
+        return <Textual data={this.data} {...this.props}/>
       default:
         return <AGraph data={this.data} {...this.props}/>
     }
