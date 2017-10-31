@@ -38,7 +38,7 @@ class BarGraph extends Component {
   constructor (props) {
     super(props)
     this.tick = 0
-    this.data = [{index: this.tick, value: 0}]
+    this.data = props.data
   }
   singleValueAsNumber = (result) => {
     const value = result.records[0].get(result.records[0].keys[0])
@@ -54,25 +54,23 @@ class BarGraph extends Component {
 
     this.data = [...this.data, ...this.responseHandler(res)]
     return (
-      <div>
-        <svg style={{border: 'solid 1px lightgrey'}} width={this.width} height={this.height}>
-          {this.data.map((d, i) => {
-            const barHeight = this.yMax - this.yPoint(d);
-            return (
-              <Group key={`bar-${i}`}>
-                <Bar
-                  x={this.xPoint(d)}
-                  y={this.yMax - barHeight}
-                  height={barHeight}
-                  width={this.xScale.bandwidth()}
-                  fill='#fc2e1c'
-                />
-              </Group>
-            );
-          })}
-        </svg>
-        <h2>CPU load</h2>
-      </div>)
+      <svg width={this.width} height={this.height}>
+        {this.data.map((d, i) => {
+          const barHeight = this.yMax - this.yPoint(d);
+          return (
+            <Group key={`bar-${i}`}>
+              <Bar
+                x={this.xPoint(d)}
+                y={this.yMax - barHeight}
+                height={barHeight}
+                width={this.xScale.bandwidth()}
+                fill='#fc2e1c'
+              />
+            </Group>
+          );
+        })}
+      </svg>
+    )
   }
   render (props) {
     return (

@@ -3,19 +3,23 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@data-ui/radial-chart": "0.0.11",
+    "@data-ui/theme": "0.0.9",
     "@vx/axis": "^0.0.142",
     "@vx/glyph": "0.0.140",
     "@vx/gradient": "^0.0.140",
     "@vx/grid": "^0.0.142",
     "@vx/group": "^0.0.140",
+    "@vx/legend": "0.0.143",
     "@vx/mock-data": "^0.0.136",
     "@vx/scale": "^0.0.140",
-    "@vx/shape": "^0.0.142",
+    "@vx/shape": "0.0.142",
     "bolt-components": "^0.2.0",
     "neo4j-driver": "^1.4.1",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
-    "react-scripts": "1.0.14"
+    "react-scripts": "1.0.14",
+    "semantic-ui-react": "^0.74.2"
   },
   "scripts": {
     "start": "react-scripts start",
