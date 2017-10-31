@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
-import AGraph from './AGraph'
-import BarGraph from './BarGraph'
-import GlyphGraph from './GlyphGraph'
-import LineRadial from './LineRadial'
-import RadialChart from './RadialChart'
+import AGraph from './charts/AGraph'
+import BarGraph from './charts/BarGraph'
+import GlyphGraph from './charts/GlyphGraph'
+import LineRadial from './charts/LineRadial'
+import RadialChart from './charts/RadialChart'
 import { Group } from '@vx/group';
 import { AreaClosed, Line, Bar } from '@vx/shape';
 import { scaleLinear, scaleBand } from '@vx/scale';
 import { Cypher } from 'bolt-components'
+import { applyDataLimit } from './chartHelpers'
 
 class ChartWrapper extends Component {
   constructor (props) {
@@ -22,7 +23,17 @@ class ChartWrapper extends Component {
   }
   singleValueAsNumberWithLabel = (result) => {
     const valueAsNumber = (value) => (value.toNumber) ? value.toNumber() : window.parseFloat(value) || 0
-
+    if (this.props.headings) {
+      const m = result.records.map(rec => {
+        return this.props.headings.map(heading => {
+          return {
+            label: heading,
+            value: valueAsNumber(rec.get(heading))
+          }
+        })
+      })
+      return m[0]
+    }
     return result.records.map(rec => {
       return {
         label: rec.get('key'),
@@ -55,8 +66,8 @@ class ChartWrapper extends Component {
   }
   renderChart(res, chartType) {
     if (chartType !== 'pie') {
-      this.data = res ? [...this.data.splice(0, 9), ...this.responseHandler(res)] : this.data
-      this.data = this.data.splice(0, 9).map((d, i) => {
+      this.data = res ? [...applyDataLimit(this.data), ...this.responseHandler(res)] : this.data
+      this.data = applyDataLimit(this.data).map((d, i) => {
         if (d) {
           d.index = i
         }

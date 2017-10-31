@@ -61,7 +61,7 @@ export default (props) => {
             scale={yScale}
             top={0}
             left={0}
-            label={props.yLabel || 'Close Price ($)'}
+            label={props.yLabel}
             stroke={'#1b1a1e'}
             tickTextFill={'#1b1a1e'}
           />
@@ -69,7 +69,7 @@ export default (props) => {
           <AxisBottom
             scale={xScale}
             top={yMax}
-            label={props.xLabel || 'Years'}
+            label={props.xLabel}
             stroke={'#1b1a1e'}
             tickTextFill={'#1b1a1e'}
           />
