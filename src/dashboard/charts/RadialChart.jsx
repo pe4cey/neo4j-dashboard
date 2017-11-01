@@ -19,7 +19,7 @@ export default ({
   const total = filteredList.reduce((acc, value) => acc.value + value.value);
   const colorScale = scaleOrdinal({ range: chartTheme.colors.categories });
   return (
-    <div style={{ display: 'flex', alignItems: 'center' }}>
+    <div>
       <RadialChart
         ariaLabel="This is a radial-chart chart of..."
         width={width}

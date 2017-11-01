@@ -12,15 +12,12 @@ export default (props) => {
   const data = props.data;
 
   // accessors
-
   const x = d => d.x;
   const y = d => d.y;
 
-  // data = [...data, ...this.responseHandler(res)]
-
-  const width = 1000;
-  const height = 500;
-  const margin = {top: 10, right: 10, bottom: 10, left: 10};
+  const width = props.width || 1000;
+  const height = props.height || 500;
+  const margin = {top: 50, right: 50, bottom: 50, left: 50};
   // bounds
   const xMax = width - margin.left - margin.right;
   const yMax = height - margin.top - margin.bottom;

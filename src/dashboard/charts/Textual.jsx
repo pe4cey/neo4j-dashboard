@@ -1,9 +1,9 @@
 import React from 'react';
-export default ({data = []}) => {
+import { Statistic } from 'semantic-ui-react'
+
+export default ({data = [], title,}, rest) => {
   const d = (data.length !== 0) ? data[data.length - 1] : data
   return (
-    <div>
-      {d.y}
-    </div>
+    <Statistic label={title} value={d.y} {...rest}/>
   )
 }

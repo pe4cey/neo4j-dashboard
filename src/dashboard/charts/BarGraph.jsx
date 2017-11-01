@@ -22,7 +22,6 @@ export default ({
       </div>
     )}
   >
-
     <XAxis label="X-axis Label" />
     <YAxis label="Y-axis Label" />
     <BarSeries

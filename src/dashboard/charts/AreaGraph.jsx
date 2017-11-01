@@ -9,20 +9,19 @@ import { extent, max } from 'd3-array';
 
 
 export default (props) => {
-
   const data = props.data
-  const width = 750;
-  const height = 400;
+  const width = props.width || 750;
+  const height = props.height || 500;
 
   const x = d => d.x;
   const y = d => d.y;
 
   // Bounds
   const margin = {
-    top: 60,
-    bottom: 60,
-    left: 80,
-    right: 80,
+    top: 50,
+    bottom: 50,
+    left: 50,
+    right: 50,
   };
   const xMax = width - margin.left - margin.right;
   const yMax = height - margin.top - margin.bottom;
@@ -33,7 +32,7 @@ export default (props) => {
   });
   const yScale = scaleLinear({
     range: [yMax, 0],
-    domain: [0, max(data, y)],
+    domain: [0, props.setYAxis || max(data, y)],
   });
 
   return (

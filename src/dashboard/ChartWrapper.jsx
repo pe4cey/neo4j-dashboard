@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import AGraph from './charts/AGraph'
+import AreaGraph from './charts/AreaGraph'
 import BarGraph from './charts/BarGraph'
 import GlyphGraph from './charts/GlyphGraph'
 import LineRadial from './charts/LineRadial'
@@ -10,6 +10,7 @@ import { AreaClosed, Line, Bar } from '@vx/shape';
 import { scaleLinear, scaleBand } from '@vx/scale';
 import { Cypher } from 'bolt-components'
 import { applyDataLimit } from './chartHelpers'
+import { Segment } from 'semantic-ui-react'
 
 class ChartWrapper extends Component {
   constructor (props) {
@@ -52,22 +53,29 @@ class ChartWrapper extends Component {
   getChart(type) {
     switch (type) {
       case 'area':
-        return <AGraph data={this.data} {...this.props}/>
+        return <AreaGraph data={this.data} {...this.parentDimensions} {...this.props}/>
       case 'bar':
-        return <BarGraph data={this.data} {...this.props}/>
+        return <BarGraph data={this.data}  {...this.parentDimensions}  {...this.props}/>
       case 'glyph':
-        return <GlyphGraph data={this.data} {...this.props}/>
+        return <GlyphGraph data={this.data} {...this.parentDimensions} {...this.props}/>
       case 'line':
-        return <LineRadial data={this.data} {...this.props}/>
+        return <LineRadial data={this.data}  {...this.parentDimensions}  {...this.props}/>
       case 'pie':
-        return <RadialChart data={this.data} {...this.props}/>
+        return <RadialChart data={this.data}  {...this.parentDimensions} {...this.props}/>
       case 'text':
-        return <Textual data={this.data} {...this.props}/>
+        return <Textual data={this.data}  {...this.parentDimensions} {...this.props}/>
       default:
-        return <AGraph data={this.data} {...this.props}/>
+        return <AreaGraph data={this.data}  {...this.parentDimensions} {...this.props}/>
     }
   }
   renderChart(res, chartType) {
+    if (this.chart && this.chart.parentElement) {
+      this.parentDimensions = {
+        width: this.chart.parentElement.offsetWidth,
+        height: 250
+      }
+    }
+
     if (chartType !== 'pie') {
       this.data = applyDataLimit(this.data)
       this.data = res ? [...this.data, ...this.responseHandler(res)] : this.data
@@ -81,10 +89,10 @@ class ChartWrapper extends Component {
       this.data = res ? [...this.responsePieHandler(res)] : this.data
     }
     return (
-      <div>
+      <Segment padded ref={chart => this.chart = chart}>
         {this.getChart(this.props.chartType)}
-        <h2>{this.props.title}</h2>
-      </div>)
+        {(this.props.chartType !== 'text') ? <h2>{this.props.title}</h2> : null}
+      </Segment>)
   }
   render () {
     return (

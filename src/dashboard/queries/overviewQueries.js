@@ -6,3 +6,7 @@ export const totalNodes = {
   query: `MATCH (n) RETURN count(n) as value`,
   title: 'Total node count'
 }
+export const totalRelationships = {
+  query: `MATCH ()-[r]-() RETURN count(r) as vvaluelaue`,
+  title: 'Total relationship count'
+}
