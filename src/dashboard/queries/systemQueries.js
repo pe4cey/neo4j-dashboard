@@ -5,8 +5,8 @@ export const processCpuLoad = {
           return attributes.ProcessCpuLoad.value * 100 as value`,
   title: 'CPU Load (%)',
   yLabel: 'CPU %',
-  setYAxis: 100,
-  resultFormatter: (i) => i.toFixed(2)
+  resultFormatter: (i) => i.toFixed(2),
+  chartType: 'area'
 }
 export const systemMemory = {
   query: `call dbms.queryJmx('java.lang:type=OperatingSystem') yield attributes

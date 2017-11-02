@@ -7,7 +7,6 @@ import { AxisLeft, AxisBottom } from '@vx/axis';
 import { LinearGradient } from '@vx/gradient';
 import { extent, max } from 'd3-array';
 
-
 export default (props) => {
   const data = props.data
   const width = props.width || 750;
