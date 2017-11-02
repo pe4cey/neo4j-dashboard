@@ -1,9 +1,12 @@
+import { toHumanReadableBytes } from '../chartHelpers'
+
 export const processCpuLoad = {
   query: `call dbms.queryJmx('java.lang:type=OperatingSystem') yield attributes
           return attributes.ProcessCpuLoad.value * 100 as value`,
-  title: 'CPU Load',
+  title: 'CPU Load (%)',
   yLabel: 'CPU %',
-  setYAxis: 100
+  setYAxis: 100,
+  resultFormatter: (i) => i.toFixed(2)
 }
 export const systemMemory = {
   query: `call dbms.queryJmx('java.lang:type=OperatingSystem') yield attributes
@@ -11,4 +14,10 @@ export const systemMemory = {
           attributes.FreePhysicalMemorySize.value * 100 as Available`,
   title: 'System Memory',
   headings: ['Used', 'Available']
+}
+export const totalStoreSize = {
+  query: `call dbms.queryJmx("org.neo4j:instance=kernel#0,name=Store file sizes") yield attributes
+          return attributes.TotalStoreSize.value as value`,
+  title: 'Total Store Size',
+  resultFormatter:(i) => toHumanReadableBytes(i)
 }

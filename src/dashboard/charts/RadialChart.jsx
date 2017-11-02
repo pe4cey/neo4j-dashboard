@@ -16,7 +16,7 @@ export default ({
   if (filteredList.length === 0) {
     return null
   }
-  const total = filteredList.reduce((acc, value) => acc.value + value.value);
+  const total = filteredList.reduce((acc, value) => (acc.value) ? acc.value + value.value : acc + value.value)
   const colorScale = scaleOrdinal({ range: chartTheme.colors.categories });
   return (
     <div>
@@ -37,7 +37,7 @@ export default ({
           fill={arc => colorScale(arc.data.label)}
           stroke="#fff"
           strokeWidth={1}
-          label={arc => `${(arc.data.value / total * 100).toFixed(1)}%`}
+          label={arc => `${(100*arc.data.value/total).toFixed(1)}%`}
           labelComponent={<ArcLabel />}
           innerRadius={radius => 0.35 * radius}
           outerRadius={radius => 0.6 * radius}

@@ -17,20 +17,26 @@ class ChartWrapper extends Component {
     super(props)
     this.tick = 0
     this.data = []
+    this.parentDimensions = {
+      width: this.props.width,
+      height: this.props.width
+    }
+  }
+  valueAsNumber = (value) => {
+    const number = (value.toNumber) ? value.toNumber() : window.parseFloat(value) || 0
+    return (this.props.resultFormatter) ? this.props.resultFormatter(number) : number
   }
   singleValueAsNumber = (result) => {
     const value = result.records[0].get(result.records[0].keys[0])
-    const valueAsNumber = (value.toNumber) ? value.toNumber() : window.parseFloat(value) || 0
-    return valueAsNumber
+    return this.valueAsNumber(value)
   }
   singleValueAsNumberWithLabel = (result) => {
-    const valueAsNumber = (value) => (value.toNumber) ? value.toNumber() : window.parseFloat(value) || 0
     if (this.props.headings) {
       return result.records.map(rec => {
         return this.props.headings.map(heading => {
           return {
             label: heading,
-            value: valueAsNumber(rec.get(heading))
+            value: this.valueAsNumber(rec.get(heading))
           }
         })
       })[0]
@@ -39,7 +45,7 @@ class ChartWrapper extends Component {
     return result.records.map(rec => {
       return {
         label: rec.get('key'),
-        value: valueAsNumber(rec.get('value'))
+        value: this.valueAsNumber(rec.get('value'))
       }
     })
   }
@@ -69,13 +75,6 @@ class ChartWrapper extends Component {
     }
   }
   renderChart(res, chartType) {
-    if (this.chart && this.chart.parentElement) {
-      this.parentDimensions = {
-        width: this.chart.parentElement.offsetWidth,
-        height: 250
-      }
-    }
-
     if (chartType !== 'pie') {
       this.data = applyDataLimit(this.data)
       this.data = res ? [...this.data, ...this.responseHandler(res)] : this.data
@@ -89,7 +88,7 @@ class ChartWrapper extends Component {
       this.data = res ? [...this.responsePieHandler(res)] : this.data
     }
     return (
-      <Segment padded ref={chart => this.chart = chart}>
+      <Segment>
         {this.getChart(this.props.chartType)}
         {(this.props.chartType !== 'text') ? <h2>{this.props.title}</h2> : null}
       </Segment>)
