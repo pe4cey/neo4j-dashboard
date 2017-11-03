@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import AreaGraph from './charts/AreaGraph'
-import BarGraph from './charts/BarGraph'
-import GlyphGraph from './charts/GlyphGraph'
-import LineRadial from './charts/LineRadial'
-import RadialChart from './charts/RadialChart'
+import AreaGraph from './charts/xy/AreaGraph'
+import BarGraph from './charts/xy/BarGraph'
+import GlyphGraph from './charts/xy/GlyphGraph'
+import LineGraph from './charts/xy/LineGraph'
+import RadialChart from './charts/circular/RadialChart'
 import Textual from './charts/Textual'
 import { Group } from '@vx/group';
 import { AreaClosed, Line, Bar } from '@vx/shape';
@@ -12,7 +12,6 @@ import { Cypher } from 'bolt-components'
 import { Segment } from 'semantic-ui-react'
 
 export default (props) => {
-
   const getChart = (type) => {
     switch (type) {
       case 'area':
@@ -22,8 +21,10 @@ export default (props) => {
       case 'glyph':
         return <GlyphGraph {...props}/>
       case 'line':
-        return <LineRadial {...props}/>
+        return <LineGraph {...props}/>
       case 'pie':
+        return <RadialChart {...props}/>
+      case 'doughnut':
         return <RadialChart {...props}/>
       case 'text':
         return <Textual {...props}/>

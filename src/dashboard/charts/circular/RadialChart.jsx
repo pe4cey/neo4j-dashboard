@@ -5,12 +5,12 @@ import { LegendOrdinal } from '@vx/legend';
 import { chartTheme } from '@data-ui/theme';
 import { RadialChart, ArcSeries, ArcLabel } from '@data-ui/radial-chart';
 
-
 export default ({
   data = [],
   width = 500,
   height = 500,
   margin = { top: 10, right: 10, bottom: 10, left: 10 },
+  chartType
 }) => {
   const filteredList = data.filter(i => i !== undefined)
   if (filteredList.length === 0) {
@@ -39,7 +39,7 @@ export default ({
           strokeWidth={1}
           label={arc => `${(100*arc.data.value/total).toFixed(1)}%`}
           labelComponent={<ArcLabel />}
-          innerRadius={radius => 0.35 * radius}
+          innerRadius={(chartType !== 'pie') ? radius => 0.35 * radius : radius => 0 * radius}
           outerRadius={radius => 0.6 * radius}
           labelRadius={radius => 0.75 * radius}
         />

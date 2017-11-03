@@ -9,7 +9,7 @@ import { extent, max } from 'd3-array';
 
 export default (props) => {
   const data = props.data
-  const width = props.width || 750;
+  const width = props.width || 500;
   const height = props.height || 500;
 
   const x = d => d.x;

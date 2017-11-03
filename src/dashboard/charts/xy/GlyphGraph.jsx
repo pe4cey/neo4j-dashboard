@@ -15,7 +15,7 @@ export default (props) => {
   const x = d => d.x;
   const y = d => d.y;
 
-  const width = props.width || 1000;
+  const width = props.width || 500;
   const height = props.height || 500;
   const margin = {top: 50, right: 50, bottom: 50, left: 50};
   // bounds
